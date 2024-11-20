@@ -84,8 +84,7 @@ public class ProblemSolutions {
 
     private void mergeSortDivisibleByKFirst(int[] values, int k, int left, int right) {
 
-        if (left >= right)
-            return;
+        if (left >= right) return;
 
         int mid = left + (right - left) / 2;
         mergeSortDivisibleByKFirst(values, k, left, mid);
@@ -97,8 +96,7 @@ public class ProblemSolutions {
      * The merging portion of the merge sort, divisible by k first
      */
 
-    private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right)
-    {
+    private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right) {
         // YOUR CODE GOES HERE, THIS METHOD IS NO MORE THAN THE STANDARD MERGE PORTION
         // OF A MERGESORT, EXCEPT THE NUMBERS DIVISIBLE BY K MUST GO FIRST WITHIN THE
         // SEQUENCE PER THE DISCUSSION IN THE PROLOGUE ABOVE.
@@ -108,9 +106,20 @@ public class ProblemSolutions {
         // ALLOCATES AUXILIARY DATA STRUCTURES (TEMPORARY ARRAYS). IT WILL BE EASIER
         // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
         // OF THIS PROGRAMMING EXERCISES.
+        int[] temp = new int[right - left + 1]; 
+        int index = 0; 
 
-        return;
-
+        for (int i = left; i <= right; i++) {
+            if (arr[i] % k == 0) temp[index++] = arr[i];
+        } 
+        // this is all for the first pass: making sure that all the elements are divisible by k from both halves
+        for (int i = left; i <= right; i++) {
+            if (arr[i] % k != 0) temp[index++] = arr[i];
+        }
+        System.arraycopy(temp, 0, arr, left, temp.length);
+        //System.arraycopy(TEMPORARY, mid, TEMPORARY, right, index);
+        //return;
+        
     }
 
 
@@ -162,9 +171,17 @@ public class ProblemSolutions {
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
 
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
+        long massrn = mass;
 
-        return false;
+        for (int asteroid : asteroids) {
+            if (massrn >= asteroid) {
+                massrn += asteroid; //the plant should take in the asteroid's mass
+            } else {
+                    return false;
 
+            }
+        }
+        return true;
     }
 
 
@@ -200,9 +217,24 @@ public class ProblemSolutions {
     public static int numRescueSleds(int[] people, int limit) {
 
         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
+        Arrays.sort(people);
 
-        return -1;
+        int left =0;
+        int right = people.length -1;
+        int sleds =0;
 
+        while (left <= right) {
+        // If the lightest and heaviest can share a sled
+            if (people[left] + people[right] <= limit) {
+                left++; // Move to the next lightest person
+            }
+        // Always move the pointer for the heaviest person
+            right--;
+            // Increment the sled count
+            sleds++;
+        }
+
+        return sleds;
     }
 
 } // End Class ProblemSolutions
