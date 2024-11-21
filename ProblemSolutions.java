@@ -138,43 +138,29 @@ public class ProblemSolutions {
         } else {
             break;
         }
-    }
-
-    while (i < n1 && leftArr[i] % k == 0) {
-        arr[kIndex++] = leftArr[i++];
-    }
-    while (j < n2 && rightArr[j] % k == 0) {
-        arr[kIndex++] = rightArr[j++];
-    }
-
-    // Merge the rest of the numbers in ascending order
-    while (i < n1 && j < n2) {
-        arr[kIndex++] = (leftArr[i] <= rightArr[j]) ? leftArr[i++] : rightArr[j++];
-    }
-
-    // Copy remaining elements of leftArr, if any
-    while (i < n1) {
-        arr[kIndex++] = leftArr[i++];
-    }
-
-    // Copy remaining elements of rightArr, if any
-    while (j < n2) {
-        arr[kIndex++] = rightArr[j++];
-    }
-        /* int[] temp = new int[right - left + 1]; 
-        int index = 0; 
-
-        for (int i = left; i <= right; i++) {
-            if (arr[i] % k == 0) temp[index++] = arr[i];
-        } 
-        // this is all for the first pass: making sure that all the elements are divisible by k from both halves
-        for (int i = left; i <= right; i++) {
-            if (arr[i] % k != 0) temp[index++] = arr[i];
         }
-        System.arraycopy(temp, 0, arr, left, temp.length);
-        //System.arraycopy(TEMPORARY, mid, TEMPORARY, right, index);
-        //return;
-        */
+
+        while (i < n1 && leftArr[i] % k == 0) {
+            arr[kIndex++] = leftArr[i++];
+        }
+        while (j < n2 && rightArr[j] % k == 0) {
+            arr[kIndex++] = rightArr[j++];
+        }
+
+        // Merge the rest of the numbers in ascending order
+        while (i < n1 && j < n2) {
+            arr[kIndex++] = (leftArr[i] <= rightArr[j]) ? leftArr[i++] : rightArr[j++];
+        }
+
+        // Copy remaining elements of leftArr, if any
+        while (i < n1) {
+            arr[kIndex++] = leftArr[i++];
+        }
+
+        // Copy remaining elements of rightArr, if any
+        while (j < n2) {
+            arr[kIndex++] = rightArr[j++];
+        }
     }
 
 
