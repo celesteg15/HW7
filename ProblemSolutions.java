@@ -235,6 +235,7 @@ public class ProblemSolutions {
         }
 
         return sleds;
+        return -1;
     }
 
 } // End Class ProblemSolutions
