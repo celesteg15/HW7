@@ -106,7 +106,62 @@ public class ProblemSolutions {
         // ALLOCATES AUXILIARY DATA STRUCTURES (TEMPORARY ARRAYS). IT WILL BE EASIER
         // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
         // OF THIS PROGRAMMING EXERCISES.
-        int[] temp = new int[right - left + 1]; 
+        // Calculate sizes of two subarrays
+            // Calculate sizes of two subarrays
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        // Create temporary arrays
+        int[] leftArr = new int[n1];
+        int[] rightArr = new int[n2];
+
+        // Copy data to temporary arrays
+        for (int i = 0; i < n1; i++) {
+            leftArr[i] = arr[left + i];
+        }
+        for (int j = 0; j < n2; j++) {
+            rightArr[j] = arr[mid + 1 + j];
+        }
+
+
+        // Merge the temporary arrays back into arr[left..right]
+        int i = 0, j = 0, kIndex = left;
+
+        // Merge numbers divisible by k first
+        while (i < n1 && j < n2) {
+            if (leftArr[i] % k == 0 && rightArr[j] % k == 0) {
+            arr[kIndex++] = (leftArr[i] >= rightArr[j]) ? leftArr[i++] : rightArr[j++];
+        } else if (leftArr[i] % k == 0) {
+            arr[kIndex++] = leftArr[i++];
+        } else if (rightArr[j] % k == 0) {
+            arr[kIndex++] = rightArr[j++];
+        } else {
+            break;
+        }
+    }
+
+    while (i < n1 && leftArr[i] % k == 0) {
+        arr[kIndex++] = leftArr[i++];
+    }
+    while (j < n2 && rightArr[j] % k == 0) {
+        arr[kIndex++] = rightArr[j++];
+    }
+
+    // Merge the rest of the numbers in ascending order
+    while (i < n1 && j < n2) {
+        arr[kIndex++] = (leftArr[i] <= rightArr[j]) ? leftArr[i++] : rightArr[j++];
+    }
+
+    // Copy remaining elements of leftArr, if any
+    while (i < n1) {
+        arr[kIndex++] = leftArr[i++];
+    }
+
+    // Copy remaining elements of rightArr, if any
+    while (j < n2) {
+        arr[kIndex++] = rightArr[j++];
+    }
+        /* int[] temp = new int[right - left + 1]; 
         int index = 0; 
 
         for (int i = left; i <= right; i++) {
@@ -119,7 +174,7 @@ public class ProblemSolutions {
         System.arraycopy(temp, 0, arr, left, temp.length);
         //System.arraycopy(TEMPORARY, mid, TEMPORARY, right, index);
         //return;
-        
+        */
     }
 
 
@@ -235,7 +290,6 @@ public class ProblemSolutions {
         }
 
         return sleds;
-        return -1;
     }
 
 } // End Class ProblemSolutions
